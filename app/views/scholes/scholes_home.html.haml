@@ -1,0 +1,36 @@
+
+%form{:action => cal_scholes_scholes_path, :method => "post", :name => "scholes"}
+  = hidden_field_tag :authenticity_token, form_authenticity_token
+  .row
+    %span
+      Stock Price
+      %input{:type=>"text", :required => true, :name => "stock_price"}
+  .row
+    %span
+      Strike Price
+      %input{:type=>"text", :required => true, :name => "strike_price"}
+  .row
+    %span
+      Years
+      %input{:type=>"text", :required => true, :name => "years"}
+  .row
+    %span
+      Risk Free
+      %input{:type=>"text", :required => true, :name => "risk_free"}
+  .row
+    %span
+      Volatility
+      %input{:type=>"text", :required => true, :name => "volatility"}
+  .row
+    %span
+      %button{:name => "submit", :type => "submit"}
+        Submit
+
+- if @cal_option && @put_option
+  .row
+    .sub-val
+      %span
+        = @cal_option
+    .sub-val
+      %span
+        = @put_option

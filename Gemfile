@@ -9,6 +9,9 @@ gem 'rails', '4.2.6'
 # Using pg as the database access active record
 gem 'pg'
 
+# Using haml for views instead of erb
+gem 'haml'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
