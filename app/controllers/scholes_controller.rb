@@ -5,8 +5,16 @@ class ScholesController < ApplicationController
   end
 
   def cal_scholes
-    render :scholes_home
+    @schole = current_user.scholes.new(scholes_params)
+    respond_to do |format|
+      if @schole.save
+        format.html { redirect_to root_url, notice: 'Scholes was successfully saved.' }
+      else
+        format.html { render :scholes_home }
+      end
+    end
   end
+
 
   private
     def cnd(x)
