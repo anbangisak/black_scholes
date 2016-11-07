@@ -1,41 +1,47 @@
 .col-sm-12.col-md-4
+  = render partial:"sidebar"
 .col-sm-12.col-md-4
+  -if notice
+    %p#notice.alert.alert-success
+      = notice
   %form{:action => cal_scholes_scholes_path, :method => "post", :name => "scholes"}
     = hidden_field_tag :authenticity_token, form_authenticity_token
-    .row
+    .row.form-group
       %span.col-md-5
         Stock Price
         %input{:type=>"text", :required => true, :name => "stock_price"}
-    .row
-      %span.col-md-5
-        Strike Price
-        %input{:type=>"text", :required => true, :name => "strike_price"}
-    .row
+    .row.form-group
       %span.col-md-5
         Years
         %input{:type=>"text", :required => true, :name => "years"}
-    .row
+    .row.form-group
+      %span.col-md-9
+        = radio_button_tag 'call_put_scholes', 'call'
+        Call Scholes Option
+    .row.form-group
+      %span.col-md-9
+        = radio_button_tag 'call_put_scholes', 'put'
+        Put Scholes Option
+    .row.form-group
       %span.col-md-5
-        Risk Free
-        %input{:type=>"text", :required => true, :name => "risk_free"}
-    .row
-      %span.col-md-5
-        Volatility
-        %input{:type=>"text", :required => true, :name => "volatility"}
-    .row
-      %span
-        %button{:name => "submit", :type => "submit", :class =>"btn-success"}
+        %button{:name => "submit", :type => "submit", :class =>"btn btn-success"}
           Submit
 
-  - if @cal_option && @put_option
+  - if @schole
     .row
-      .sub-val
-        %span.col-md-5
+      .sub-val.form-group
+        %span.col-md-9
           Call Option
-        %span
-          = @cal_option
-      .sub-val
-        %span.col-md-5
+          = @schole.cal_option_val
+      .sub-val.form-group
+        %span.col-md-9
           Put Option
-        %span
-          = @put_option
+          = @schole.put_option_val
+      .sub-val.form-group
+        %span.col-md-9
+          Years
+          = @schole.years
+      .sub-val.form-group
+        %span.col-md-9
+          Stock Price
+          = @schole.stock_price
