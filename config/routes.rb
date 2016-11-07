@@ -2,6 +2,15 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  #root 'home#index'
+  root 'scholes#scholes_home'
+
+  resources :scholes, only: [:show] do
+    collection do
+      get "scholes-home", to: 'scholes#scholes_home'
+      post "cal-scholes", to: 'scholes#cal_scholes'
+    end
+  end
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
