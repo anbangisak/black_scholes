@@ -1,36 +1,41 @@
-
-%form{:action => cal_scholes_scholes_path, :method => "post", :name => "scholes"}
-  = hidden_field_tag :authenticity_token, form_authenticity_token
-  .row
-    %span
-      Stock Price
-      %input{:type=>"text", :required => true, :name => "stock_price"}
-  .row
-    %span
-      Strike Price
-      %input{:type=>"text", :required => true, :name => "strike_price"}
-  .row
-    %span
-      Years
-      %input{:type=>"text", :required => true, :name => "years"}
-  .row
-    %span
-      Risk Free
-      %input{:type=>"text", :required => true, :name => "risk_free"}
-  .row
-    %span
-      Volatility
-      %input{:type=>"text", :required => true, :name => "volatility"}
-  .row
-    %span
-      %button{:name => "submit", :type => "submit"}
-        Submit
-
-- if @cal_option && @put_option
-  .row
-    .sub-val
+.col-sm-12.col-md-4
+.col-sm-12.col-md-4
+  %form{:action => cal_scholes_scholes_path, :method => "post", :name => "scholes"}
+    = hidden_field_tag :authenticity_token, form_authenticity_token
+    .row
+      %span.col-md-5
+        Stock Price
+        %input{:type=>"text", :required => true, :name => "stock_price"}
+    .row
+      %span.col-md-5
+        Strike Price
+        %input{:type=>"text", :required => true, :name => "strike_price"}
+    .row
+      %span.col-md-5
+        Years
+        %input{:type=>"text", :required => true, :name => "years"}
+    .row
+      %span.col-md-5
+        Risk Free
+        %input{:type=>"text", :required => true, :name => "risk_free"}
+    .row
+      %span.col-md-5
+        Volatility
+        %input{:type=>"text", :required => true, :name => "volatility"}
+    .row
       %span
-        = @cal_option
-    .sub-val
-      %span
-        = @put_option
+        %button{:name => "submit", :type => "submit", :class =>"btn-success"}
+          Submit
+
+  - if @cal_option && @put_option
+    .row
+      .sub-val
+        %span.col-md-5
+          Call Option
+        %span
+          = @cal_option
+      .sub-val
+        %span.col-md-5
+          Put Option
+        %span
+          = @put_option
