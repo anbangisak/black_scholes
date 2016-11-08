@@ -5,6 +5,30 @@ class ScholesController < ApplicationController
   def scholes_home
   end
 
+  def scholes_update_price
+    begin
+      cal_or_put_option = @schole.cal_option_val ? "c" : "p" 
+      @display_price = black_scholes(cal_or_put_option,@schole.stock_price.to_f, params[:strike_price].to_f, @schole.years.to_f, params[:risk_free].to_f, params[:volatility].to_f)
+      @message = "successful"
+      @status = 200
+    rescue => e
+      p "#{e.to_s}"
+      @message = "failed"
+      @status = 500
+    end
+    respond_to do |format|
+      format.json {
+        render json: {:message => @message,:status=>@status, :display_price => @display_price ? @display_price : 0.00}, status: @status
+      }
+    end
+  end
+
+  def scholes_graph
+  end
+
+  def scholes_price
+  end
+
   def cal_scholes
     @schole_new = current_user.scholes.new(schole_save_params) unless @schole
     respond_to do |format|
