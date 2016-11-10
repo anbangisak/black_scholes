@@ -1,0 +1,43 @@
+.col-sm-12.col-md-4
+  = render partial:"sidebar"
+.col-sm-12.col-md-4
+  %h1
+    Listing products
+
+  %table
+    .row.form-group
+      %tr
+        %th.col-md-2
+          stock price
+        %th.col-md-2
+          scholes option
+        %th.col-md-2
+          years
+        %th.col-md-2
+          strike price
+        %th.col-md-2
+          risk free
+        %th.col-md-2
+          volatility
+        %th.col-md-2
+          Display Price
+
+
+    - @scholes.each do |schole|
+      .row.form-group
+        %tr
+          %td.col-md-2
+            = schole.stock_price
+          %td.col-md-2
+            = schole.cal_option_val ? "call option" : "put option"
+          %td.col-md-2
+            = schole.years
+          %td.col-md-2
+            = schole.strike_price
+          %td.col-md-2
+            = schole.risk_free
+          %td.col-md-2
+            = schole.volatility
+          %td.col-md-2
+            = schole.display_price
+

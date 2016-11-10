@@ -6,13 +6,15 @@ Rails.application.routes.draw do
   #root 'home#index'
   root 'scholes#scholes_home'
 
-  resources :scholes, only: [:show] do
+  resources :scholes, only: [:index] do
     collection do
       get "scholes-home", to: 'scholes#scholes_home'
       post "cal-scholes", to: 'scholes#cal_scholes'
       get "scholes-graph", to: "scholes#scholes_graph"
       get "scholes-price", to: "scholes#scholes_price"
       post "scholes-update-price", to: "scholes#scholes_update_price"
+      get "scholes-all", to: "scholes#scholes_all"
+      post "scholes-save-all", to: "scholes#scholes_save_all"
     end
   end
   # You can have the root of your site routed with "root"
