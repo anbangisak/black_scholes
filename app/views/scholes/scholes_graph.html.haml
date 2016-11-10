@@ -1,5 +1,41 @@
-.col-sm-12.col-md-4
+.col-sm-12.col-md-2
   = render partial:"sidebar"
 .col-sm-12.col-md-4
+  %form{:action => scholes_save_all_scholes_path, :method => "post", :name => "scholes_price"}
+    = hidden_field_tag :authenticity_token, form_authenticity_token
+    %input{:type=>"hidden", :name => "past_data", :value => "#{@past_data.to_json if @past_data}"}
+    .row.form-group
+      %span.col-md-5
+        Stock Price
+        %input{:type=>"text", :required => true, :name => "stock_price"}
+    .row.form-group
+      %span.col-md-5
+        Years
+        %input{:type=>"text", :required => true, :name => "years"}
+    .row.form-group
+      %span.col-md-5
+        Interest Rate
+        %input{:type=>"text", :required => true, :name => "risk_free"}
+    .row.form-group
+      %span.col-md-5
+        Volatility
+        %input{:type=>"text", :required => true, :name => "volatility"}
+    .row.form-group
+      %span.col-md-5
+        Strike Price
+        %input{:type=>"text", :required => true, :name => "strike_price"}
+    .row.form-group
+      %span.col-md-9
+        = radio_button_tag 'call_put_scholes', 'call'
+        Call Scholes Option
+    .row.form-group
+      %span.col-md-9
+        = radio_button_tag 'call_put_scholes', 'put'
+        Put Scholes Option
+    .row.form-group
+      %span.col-md-5
+        %input{:name => "submit", :type => "submit", :class =>"btn btn-success",:value => "Submit", :id=>"save" }
+.col-sm-12.col-md-6
+  - @product = [1,2,3]
   = high_chart_globals(@chart_globals)
   = high_chart("some_id", @chart)

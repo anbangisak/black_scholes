@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get "scholes-home", to: 'scholes#scholes_home'
       post "cal-scholes", to: 'scholes#cal_scholes'
       get "scholes-graph", to: "scholes#scholes_graph"
+      post "scholes-graph-update", to: "scholes#scholes_graph_update"
       get "scholes-price", to: "scholes#scholes_price"
       post "scholes-update-price", to: "scholes#scholes_update_price"
       get "scholes-all", to: "scholes#scholes_all"
