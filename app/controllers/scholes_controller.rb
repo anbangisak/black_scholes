@@ -27,6 +27,19 @@ class ScholesController < ApplicationController
     gen_chart
   end
 
+  def scholes_graph_update
+    @past_data = JSON.parse(params[:past_data]) if params[:past_data]
+    schole = Schole.new(scholes_save_all_params)
+    display_price = schole.display_price
+    respond_to do |format|
+      if past_data.count > 5
+        format.html { redirect_to :scholes_graph }
+      else
+        format.html { render :scholes_graph }
+      end
+    end
+  end
+
   def scholes_price
   end
 
@@ -88,12 +101,12 @@ class ScholesController < ApplicationController
 
     def gen_chart
       @chart = LazyHighCharts::HighChart.new('graph') do |f|
-        f.title(text: "Population vs GDP For 5 Big Countries [2009]")
-        f.xAxis(categories: ["United States", "Japan", "China", "Germany", "France"])
-        f.series(name: "GDP in Billions", yAxis: 0, data: [14119, 5068, 4985, 3339, 2656])
+        f.title(text: "Display vs Trade Inputs")
+        f.xAxis(categories: ["60.0, 0.25, 8.0, 30.0, 65.0, call option", "60.0, 0.5, 12.0, 30.0, 65.0, put option", "60.0, 0.15, 6.0, 30.0, 65.0, call option"])
+        f.series(name: "GDP in Billions", yAxis: 0, data: [59.999999999998536, 0.1611188914833133, 59.99999975026183])
 
         f.yAxis [
-          {title: {text: "GDP in Billions", margin: 70} },
+          {title: {text: "Display Price", margin: 70} },
         ]
 
         f.legend(align: 'right', verticalAlign: 'top', y: 75, x: 550, layout: 'vertical')
