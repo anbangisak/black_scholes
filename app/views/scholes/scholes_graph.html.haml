@@ -1,2 +1,5 @@
 .col-sm-12.col-md-4
   = render partial:"sidebar"
+.col-sm-12.col-md-4
+  = high_chart_globals(@chart_globals)
+  = high_chart("some_id", @chart)

@@ -17,6 +17,9 @@ gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+# Use for chart display
+gem 'lazy_high_charts'
+# Use SCSS for stylesheets
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
