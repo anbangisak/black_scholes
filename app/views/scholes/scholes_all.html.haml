@@ -4,7 +4,7 @@
   -if notice
     %p#notice.alert.alert-success
       = notice
-  %form{:action => scholes_save_all_scholes_path, :method => "post", :name => "scholes_price"}
+  %form{:action => scholes_update_price_scholes_path, :method => "post", :name => "scholes_price"}
     = hidden_field_tag :authenticity_token, form_authenticity_token
     .row.form-group
       %span.col-md-5
@@ -36,4 +36,4 @@
         Put Scholes Option
     .row.form-group
       %span.col-md-5
-        %input{:name => "submit", :type => "submit", :class =>"btn btn-success",:value => "Submit", :id=>"save" }
+        %input{:name => "submit", :type => "button", :class =>"btn btn-success",:value => "Submit", :id=>"save" }

@@ -1,9 +1,10 @@
 .col-sm-12.col-md-2
   = render partial:"sidebar"
 .col-sm-12.col-md-4
-  %form{:action => scholes_save_all_scholes_path, :method => "post", :name => "scholes_price"}
+  %form{:action => scholes_graph_update_scholes_path, :method => "post", :name => "scholes_price"}
     = hidden_field_tag :authenticity_token, form_authenticity_token
     %input{:type=>"hidden", :name => "past_data", :value => "#{@past_data.to_json if @past_data}"}
+    %input{:type=>"hidden", :name => "display_price_arr", :value => "#{@display_price_arr.to_json if @display_price_arr}"}
     .row.form-group
       %span.col-md-5
         Stock Price

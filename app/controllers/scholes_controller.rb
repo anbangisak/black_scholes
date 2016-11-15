@@ -25,14 +25,20 @@ class ScholesController < ApplicationController
 
   def scholes_graph
     gen_chart
+    @past_data = []
+    @display_price_arr = []
   end
 
   def scholes_graph_update
-    @past_data = JSON.parse(params[:past_data]) if params[:past_data]
+    @past_data = params[:past_data] ? JSON.parse(params[:past_data]) : []
+    @display_price_arr = params[:display_price_arr] ? JSON.parse(params[:display_price_arr]) : []
     schole = Schole.new(scholes_save_all_params)
     display_price = schole.display_price
+    @past_data << "#{params[:stock_price]}, #{params[:call_put_scholes] == "put" ? "put option" : "call option"}, #{params[:years]}, #{params[:strike_price]}, #{params[:risk_free]}, #{params[:volatility]}"
+    @display_price_arr << display_price
+    gen_chart
     respond_to do |format|
-      if past_data.count > 5
+      if @past_data.count > 5
         format.html { redirect_to :scholes_graph }
       else
         format.html { render :scholes_graph }
@@ -85,7 +91,7 @@ class ScholesController < ApplicationController
     end
 
     def scholes_save_all_params
-      params.permit(:stock_price, :call_put_scholes, :years, :strike_price, :risk_free, :volatility )
+      params.permit(:stock_price, :call_put_scholes, :years, :strike_price, :risk_free, :volatility, :past_data,  :display_price_arr)
       {stock_price: params[:stock_price], cal_option_val: params[:call_put_scholes] == "call", put_option_val: params[:call_put_scholes] == "put", years: params[:years], strike_price: params[:strike_price], risk_free: params[:risk_free], volatility: params[:volatility]}
     end
 
@@ -102,8 +108,8 @@ class ScholesController < ApplicationController
     def gen_chart
       @chart = LazyHighCharts::HighChart.new('graph') do |f|
         f.title(text: "Display vs Trade Inputs")
-        f.xAxis(categories: ["60.0, 0.25, 8.0, 30.0, 65.0, call option", "60.0, 0.5, 12.0, 30.0, 65.0, put option", "60.0, 0.15, 6.0, 30.0, 65.0, call option"])
-        f.series(name: "GDP in Billions", yAxis: 0, data: [59.999999999998536, 0.1611188914833133, 59.99999975026183])
+        f.xAxis(categories: @past_data)
+        f.series(name: "GDP in Billions", yAxis: 0, data: @display_price_arr)
 
         f.yAxis [
           {title: {text: "Display Price", margin: 70} },
